@@ -1,19 +1,27 @@
 #include <string>
 using namespace std;
 class Account{
-    int account_number;
-    int pin;
-    double account_balance = 0;
     
     public:
-        double get_balance(){return account_balance;}
-        void deposit();
-        void withdraw();
+        Account();
+        Account(int acno, int pin);
+        Account(int acno, int pin, int balance);
+        
+
         int get_acno() { return account_number;}
         int get_password(){return pin;}
+        
+        double get_balance(){return balance;}
 
+        void deposit();
+        void withdraw();
         void create_account();
-        //Account find_account(char passsword);
-       
+
+    private:
+        int account_number;
+        int pin;
+        int balance;
+        
+        
 
 };
