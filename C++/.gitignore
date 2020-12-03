@@ -2,3 +2,9 @@
 *.filters
 *.user
 *.txt
+*.sln
+*.vcxproj
+*.o
+/.vs
+BankSystem/.vs
+BankSystem/Debug/**
