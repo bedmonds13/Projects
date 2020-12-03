@@ -1,4 +1,6 @@
+#pragma once
 #include <string>
+
 using namespace std;
 class Account{
     
@@ -13,8 +15,8 @@ class Account{
         
         double get_balance(){return balance;}
 
-        void deposit();
-        void withdraw();
+        void deposit(int amount);
+        void withdraw(int amount);
         void create_account();
 
     private:
