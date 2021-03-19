@@ -50,9 +50,10 @@ private:
   //the higher the value, the more tired the miner
   int                   m_iFatigue;
   
+  ```
   //Lower the health the weaker the miner is
   int					m_iHealth;
-
+  ```
 public:
 
   Miner(int id);
