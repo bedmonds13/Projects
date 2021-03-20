@@ -87,12 +87,13 @@ public:
   bool          Thirsty()const; 
   void          BuyAndDrinkAWhiskey(){m_iThirst = 0; m_iMoneyInBank-=2;}
 
-  //Added data fields
+  /*** My added portions ***/
   int			CurrentHealth() const{ return m_iHealth; }
   bool			IsInjured()const { return m_iHealth < 1 ;}
   bool			IsFullyHealed()const { return m_iHealth == MaxHealth; }
   void			DecreaseHealth() { m_iHealth -= 1; }
   void			ReceiveAid() { m_iHealth +=1; }
+  /******/
 };
 
 
