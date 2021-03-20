@@ -246,7 +246,7 @@ VisitDoctor* VisitDoctor::Instance()
 	return &instance;
 }
 
-//Added State
+/*** My added state***/
 void VisitDoctor::Enter(Miner * miner)
 {
 	if (miner->Location() != hospital)
