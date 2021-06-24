@@ -1,6 +1,8 @@
-#include "GL/freeglut.h"
-#include "GameTime.h"
+#include "GL/glut.h"
 #include "Ball.h";
+#include <iostream>
+
+
 
 using namespace std;
 
@@ -12,15 +14,28 @@ int vx = 0;
 int vy = 0;
 
 const int BALLSPEED = 2;
-Time GAME_TIME = Time();
-Time NEXT_FRAME = GAME_TIME;
+
 Ball game_ball = Ball(30, 10);
 int ball_radius = 4;
+
+float old_t = 0;
+
+void time_elapsed()
+{
+	float t= 0;
+	/* Delta time in seconds. */
+	float dt;
+	t = glutGet(GLUT_ELAPSED_TIME);
+	dt = (t - old_t) / 1000.0;
+	old_t = t;
+	cout << t/1000 << "\n";
+}
 
 void Window()
 {
 	glutInitWindowSize(500, 500);
 }
+
 void keyboard(unsigned char key, int mouseX , int mouseY )
 {
 	switch (key) {
@@ -59,9 +74,10 @@ void Initialize()
 	}
 
 }
+
 void Update(int)
 {
-	
+	time_elapsed();
 
 	if (game_ball.get_position_x() >= SCREEN_WIDTH ||
 		game_ball.get_position_x() <= -SCREEN_WIDTH )
@@ -102,8 +118,15 @@ void display()
 	glFlush();
 
 }
+
+void init()
+{
+	old_t = glutGet(GLUT_ELAPSED_TIME);
+}
+
 int main(int argc, char* argv[])
 {
+	init();
 	glutInit(&argc, argv);
 	Window();
 	glutCreateWindow("Game");

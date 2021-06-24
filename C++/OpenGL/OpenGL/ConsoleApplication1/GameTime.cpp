@@ -1,11 +1,11 @@
 #include <ctime>
-#include "../include/GameTime.h";
+#include "GameTime.h";
 
 using namespace std;
 Time::Time()
 {
 	time_t now = time(nullptr);
-	my_time = *localtime(&now);
+	//my_time = *localtime(&now);
 }
 tm Time::get_time()
 {

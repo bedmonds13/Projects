@@ -1,8 +1,9 @@
 //mesh.cpp
-#include "Mesh/mesh.h"
+#include "mesh.h"
+#include "GL/freeglut.h"
 
 using namespace std;
-
+/*
 Mesh::Mesh()    //constructor
 {
     numVerts = numFaces = numNormals = 0;
@@ -96,3 +97,4 @@ int Mesh::readFile(const char* fileName)
     }
     return 0; // success
 } //readFile
+*/
