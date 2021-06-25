@@ -1,5 +1,6 @@
 #include "GL/glut.h"
 #include "Ball.h";
+#include "Game.h"
 #include <iostream>
 
 
@@ -20,16 +21,7 @@ int ball_radius = 4;
 
 float old_t = 0;
 
-void time_elapsed()
-{
-	float t= 0;
-	/* Delta time in seconds. */
-	float dt;
-	t = glutGet(GLUT_ELAPSED_TIME);
-	dt = (t - old_t) / 1000.0;
-	old_t = t;
-	cout << t/1000 << "\n";
-}
+
 
 void Window()
 {
@@ -77,7 +69,7 @@ void Initialize()
 
 void Update(int)
 {
-	time_elapsed();
+	//time_elapsed();
 
 	if (game_ball.get_position_x() >= SCREEN_WIDTH ||
 		game_ball.get_position_x() <= -SCREEN_WIDTH )
@@ -128,14 +120,10 @@ int main(int argc, char* argv[])
 {
 	init();
 	glutInit(&argc, argv);
-	Window();
-	glutCreateWindow("Game");
-	glutSetCursor(GLUT_CURSOR_CROSSHAIR);
-	Initialize();
-	glutKeyboardFunc(keyboard);
-	glutDisplayFunc(display);
-	glutTimerFunc(1000/30, Update, 0);
-	glutMainLoop();
+	glutInitDisplayMode(GLUT_SINGLE);
+	Game* NewGame = new Game();
+	NewGame->Start();
+	
 
 	return 0;
 }
