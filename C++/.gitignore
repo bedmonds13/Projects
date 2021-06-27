@@ -2,7 +2,6 @@
 *.filters
 *.user
 *.txt
-*.sln
 *.vcxproj
 *.o
 *.vs
