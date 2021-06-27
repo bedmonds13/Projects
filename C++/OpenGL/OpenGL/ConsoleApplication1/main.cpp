@@ -19,6 +19,7 @@ int ball_radius = 4;
 */
 Game* NewGame = new Game();
 
+char img[16] = { "pickle_rick.png" };
 
 void Window()
 {
@@ -50,7 +51,20 @@ void display()
 
 void init()
 {
+
+	for (int i = 0; i < sizeof(img); i++)
+	{
+		cout << img[i] << endl;
+	}
 	NewGame->old_t  = glutGet(GLUT_ELAPSED_TIME);
+	glEnable(GL_TEXTURE_2D);
+	GLuint handles[2];
+	glGenTextures(2, handles);
+
+	glBindTexture(GL_TEXTURE_2D, handles[0]);
+	glBindTexture(GL_TEXTURE_2D, handles[1]);
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+
 }
 
 
