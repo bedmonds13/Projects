@@ -1,8 +1,6 @@
 *.json
-*.filters
 *.user
 *.txt
-*.vcxproj
 *.o
 *.vs
 *.dll
