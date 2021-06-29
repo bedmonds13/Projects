@@ -1,25 +1,18 @@
+
 #include "GL/glut.h"
-#include "Ball.h";
 #include "Game.h"
 #include <iostream>
 #include "stb_image.h"
+#include "Texture.h"
+#include <string>
 
 using namespace std;
 
-/*
-int x = 0;
-int y = 0;
-int vx = 0;
-int vy = 0;
+int SCREEN_WIDTH = 2000, SCREEN_HEIGHT = 1500;
+static Game NewGame;
 
-const int BALLSPEED = 2;
 
-Ball game_ball = Ball(30, 10);
-int ball_radius = 4;
-*/
-Game* NewGame = new Game();
-
-char img[16] = { "pickle_rick.png" };
+static Texture picleRickTexture("include/resources/png/mangekyo-sharingan.png");
 
 void Window()
 {
@@ -30,7 +23,6 @@ void keyboard(unsigned char key, int mouseX , int mouseY )
 {
 	if (key == 27)
 		exit(0);
-	
 }
 int RandomNumberGenerator(int from, int to)
 {
@@ -41,87 +33,58 @@ int RandomNumberGenerator(int from, int to)
 
 void display()
 {
-	NewGame->Update();
-
+	NewGame.Update();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glEnable(GL_TEXTURE_2D);
+	//glColor3f(0, 1.0f, 0);
+	
+	int x = SCREEN_WIDTH/2;
+	int y = SCREEN_HEIGHT/2;
+	glBegin(GL_QUADS);
+		glTexCoord2f(0.0, 0.0); glVertex2f(-x, -y);
+		glTexCoord2f(0.0, 1.0); glVertex2f(-x, y);
+		glTexCoord2f(1.0, 1.0); glVertex2f(x, y);
+		glTexCoord2f(1.0, 0.0); glVertex2f(x, -y);
+	glEnd();
 
 	glFinish();
 	glutPostRedisplay();
 }
 
 
+
 void init()
 {
+	gluOrtho2D(-SCREEN_WIDTH/2, SCREEN_WIDTH/2, -SCREEN_HEIGHT/2, SCREEN_HEIGHT/2);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
 
-	for (int i = 0; i < sizeof(img); i++)
-	{
-		cout << img[i] << endl;
-	}
-	NewGame->old_t  = glutGet(GLUT_ELAPSED_TIME);
-	glEnable(GL_TEXTURE_2D);
-	GLuint handles[2];
-	glGenTextures(2, handles);
+	NewGame.old_t  = glutGet(GLUT_ELAPSED_TIME);
 
-	glBindTexture(GL_TEXTURE_2D, handles[0]);
-	glBindTexture(GL_TEXTURE_2D, handles[1]);
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	picleRickTexture.GenerateTexture();
+	
 
+}
+void GameWindow()
+{
+	glutInitDisplayMode(GLUT_SINGLE);
+	glutInitWindowSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	glutCreateWindow("Game");
+	
 }
 
 
 int main(int argc, char* argv[])
 {
 	
-	init();
 	glutInit(&argc, argv);
-	NewGame->GameWindow();
+	GameWindow();
+	init();
 	glutDisplayFunc(display);
 	glutKeyboardFunc(keyboard);
 	glutMainLoop();
 	return 0;
 }
-/*
-void Initialize()
-{
-	
-	while (game_ball.get_velocity_x() == 0 && game_ball.get_velocity_y() == 0)
-	{
-		game_ball.set_velocity_x(BALLSPEED * RandomDirection());
-		game_ball.set_velocity_y(BALLSPEED * RandomDirection());
-	}
-
-}
-
-void Update(int)
-{
-	if (game_ball.get_position_x() >= SCREEN_WIDTH ||
-		game_ball.get_position_x() <= -SCREEN_WIDTH )
-		game_ball.set_velocity_x(-(game_ball.get_velocity_x()));
-	if (game_ball.get_position_y() >= SCREEN_HEIGHT ||
-		game_ball.get_position_y() <= -SCREEN_HEIGHT)
-		game_ball.set_velocity_y(-(game_ball.get_velocity_y()));
-
-	if (abs(game_ball.get_position_x() - x) < ball_radius && abs(game_ball.get_position_y() - y) < ball_radius)
-	{
-		game_ball.set_velocity_x(RandomDirection());
-		game_ball.set_velocity_y(RandomDirection());
-	}
-
-
-	game_ball.move();
-	glutPostRedisplay();
-	glutTimerFunc(1000/30, Update, 0);
-	
-}
-
-
-void drawbox(int x, int y) 
-{
-	glColor3f(0.0, 0.0, 0.0);
-	glBegin(GL_POINTS);
-		glVertex2i(-1+x,-1+y);
-		glVertex2i(-1+x,1+y);
-		glVertex2i(1+x,1+y);
-		glVertex2i(1+x,-1+y);
-	glEnd();
-}
-*/
