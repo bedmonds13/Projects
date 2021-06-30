@@ -1,26 +1,39 @@
 #pragma once
 #include "GL/freeglut.h"
+#include "Ball.h"
 #include <iostream>
 class Game
 {
+	Ball gameBall;
+	int boundary_x;
+	int boundary_y;
 public:
 	long long old_t;
+
+	Game() : boundary_x(500), boundary_y(500), old_t(glutGet(GLUT_ELAPSED_TIME)){}
+	Game(int x, int y): boundary_x(x),boundary_y(y), old_t(glutGet(GLUT_ELAPSED_TIME)){}
 	
-	Game()
+	void Initialize()
 	{
-		old_t = glutGet(GLUT_ELAPSED_TIME);
+		gameBall.objectTexture.GenerateTexture();
 	}
 	void Update()
 	{
 		old_t = glutGet(GLUT_ELAPSED_TIME);
-		std::cout << (old_t / 1000.0f) << std::endl;
-
 		draw();
 	}
 
-	void draw(){}
+	void draw(){
+		gameBall.render(500, 500);
+		gameBall.draw(400);
+	}
+	void Input(unsigned char key, int mouseX, int mouseY)
+	{
+		if (key == 27)
+			exit(0);
+	}
 	
-	~Game(){		}
+	~Game() { }
 };
 
 
