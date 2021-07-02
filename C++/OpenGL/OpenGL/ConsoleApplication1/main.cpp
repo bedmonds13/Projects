@@ -1,5 +1,5 @@
 
-#include "GL/freeglut.h"
+#include "GL/glut.h"
 #include "Game.h"
 #include <iostream>
 #include "stb_image.h"
@@ -8,12 +8,10 @@
 
 
 int SCREEN_WIDTH = 2000, SCREEN_HEIGHT = 1500;
-Vec3 vectorTest;
-
-
-Texture picleRickTexture("include/resources/png/space-background.jpg");
 
 Game NewGame(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+
 
 void Window()
 {
@@ -41,18 +39,12 @@ void display()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glEnable(GL_TEXTURE_2D);
-	
-	
-	picleRickTexture.Bind();
-	glBegin(GL_QUADS);
-		glTexCoord2f(0.0, 0.0); glVertex2f(-x, -y);
-		glTexCoord2f(0.0, 1.0); glVertex2f(-x, y);
-		glTexCoord2f(1.0, 1.0); glVertex2f(x, y);
-		glTexCoord2f(1.0, 0.0); glVertex2f(x, -y);
-	glEnd();
-	glDisable(GL_TEXTURE_2D);
-	
+
 	NewGame.Update();
+
+	
+	glDisable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 	glFinish();
 	glutPostRedisplay();
@@ -63,8 +55,9 @@ void init()
 	gluOrtho2D(-SCREEN_WIDTH/2, SCREEN_WIDTH/2, -SCREEN_HEIGHT/2, SCREEN_HEIGHT/2);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
-	picleRickTexture.GenerateTexture();
+	
 	NewGame.Initialize();
+
 }
 void GameWindow()
 {
