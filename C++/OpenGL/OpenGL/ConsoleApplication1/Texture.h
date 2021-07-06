@@ -13,7 +13,7 @@ class Texture
 
 public:
 
-	Texture() :width(0), height(0), nrChannels(0), filePath("include/resources/png/mangekyo-sharingan.png"), data(nullptr), id(0){}
+	Texture() :width(0), height(0), nrChannels(0), filePath("include/resources/png/mangekyo-sharingan.png"), data(nullptr), id(0) {}
 
 	Texture(std::string&& newPath):width(0), height(0), nrChannels(0), filePath(newPath), id(0){}
 	void GenerateTexture()

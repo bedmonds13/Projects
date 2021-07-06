@@ -16,7 +16,7 @@ public:
 	long long old_t;
 
 	Game() : background(Texture("include/resources/png/space-background.jpg")), screen_boundary_x(500), screen_boundary_y(500), old_t(glutGet(GLUT_ELAPSED_TIME)){}
-	Game(int x, int y):background(Texture("include/resources/png/space-background.jpg")),secondTexture("include/resources/png/sharingan-edited.png"), screen_boundary_x(x),screen_boundary_y(y), old_t(glutGet(GLUT_ELAPSED_TIME))
+	Game(int x, int y):background(Texture("include/resources/png/space-background.jpg")),secondTexture("include/resources/png/sharingan2-edit.png"), screen_boundary_x(x),screen_boundary_y(y), old_t(glutGet(GLUT_ELAPSED_TIME))
 	{
 		Textures.push_back(background);
 		Textures.push_back(secondTexture);
@@ -46,7 +46,6 @@ public:
 		
 		secondTexture.Bind();
 		glEnable(GL_BLEND);
-		glColor4f(1.0, 1.0, 1.0, 0.5);
 		int x = screen_boundary_x / 5;
 		int y = screen_boundary_y / 5;
 		float depth = 0.1f;
