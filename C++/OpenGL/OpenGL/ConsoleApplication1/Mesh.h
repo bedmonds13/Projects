@@ -1,6 +1,8 @@
 #include <string>
-/*class Vector3
+
+class Vector3
 {
+public:
     float x;
     float y;
     float z;
@@ -33,7 +35,7 @@ public:
 
 class Mesh {
 private:
-    int numVerts, numNorms, numFaces;
+    int numVerts, numNormals, numFaces;
     Point3* pt; 		// array of points ( 3D vertices
     Vector3* norm; 	// array of normals
     Face* face; 		// array of faces
@@ -42,21 +44,22 @@ private:
     int lastFaceUsed;
 
 public:
-    string meshFileName; 	// holds file name for this Mesh
-
-    void readMesh(string fname);
+    int readFile(const char* fileName);
+    std::string meshFileName; 	// holds file name for this Mesh
+    void setColor(int n);
+    void readMesh(std::string fname);
     void writeMesh(char* fname);
     void printMesh();
     void drawMesh();
     void drawEdges();
     void freeMesh();
-    int isEmpty();
+    bool isEmpty();
     void makeEmpty();
     Mesh();
-    virtual void drawOpenGL();
-    Mesh(string fname);
+    //virtual void drawOpenGL();
+    Mesh(std::string fname);
     Vector3 newell4(int indx[]);
     //bool hit(Ray& r, Intersection& inter);
 }; // end of Mesh class
 
-    */
+    

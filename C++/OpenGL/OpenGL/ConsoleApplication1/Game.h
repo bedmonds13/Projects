@@ -1,24 +1,31 @@
 #pragma once
-#include "GL/freeglut.h"
+#include <vector>
+#include "GL/Glut.h"
 #include "Ball.h"
-#include <iostream>
 #include "Texture.h"
 class Game
 {
 	Texture background;
-	Ball gameBall;
-	int boundary_x;
-	int boundary_y;
+	Texture secondTexture;
+
+	int screen_boundary_x;
+	int screen_boundary_y;
+
+	std::vector<Texture> Textures;
 public:
 	long long old_t;
 
-	Game() : background(Texture("include/resources/png/space-background.jpg")), boundary_x(500), boundary_y(500), old_t(glutGet(GLUT_ELAPSED_TIME)) {}
-	Game(int x, int y):background(Texture("include/resources/png/space-background.jpg")), boundary_x(x),boundary_y(y), old_t(glutGet(GLUT_ELAPSED_TIME)){}
+	Game() : background(Texture("include/resources/png/space-background.jpg")), screen_boundary_x(500), screen_boundary_y(500), old_t(glutGet(GLUT_ELAPSED_TIME)){}
+	Game(int x, int y):background(Texture("include/resources/png/space-background.jpg")),secondTexture("include/resources/png/sharingan-edited.png"), screen_boundary_x(x),screen_boundary_y(y), old_t(glutGet(GLUT_ELAPSED_TIME))
+	{
+		Textures.push_back(background);
+		Textures.push_back(secondTexture);
+	}
 	
 	void Initialize()
 	{
-		gameBall.objectTexture.GenerateTexture();
 		background.GenerateTexture();
+		secondTexture.GenerateTexture();
 	}
 
 	void Update()
@@ -27,16 +34,31 @@ public:
 		draw();
 	}
 
-	void draw(){
-
+	void draw()
+	{
 		background.Bind();
 		glBegin(GL_QUADS);
-		glTexCoord2f(0.0, 0.0); glVertex2f(-boundary_x, -boundary_y);
-		glTexCoord2f(0.0, 1.0); glVertex2f(-boundary_x, boundary_y);
-		glTexCoord2f(1.0, 1.0); glVertex2f(boundary_x, boundary_y);
-		glTexCoord2f(1.0, 0.0); glVertex2f(boundary_x, -boundary_y);
-		glEnd(); 
-		gameBall.render(500, 500);
+		glTexCoord2f(0.0, 0.0); glVertex2f(-screen_boundary_x, -screen_boundary_y);
+		glTexCoord2f(0.0, 1.0); glVertex2f(-screen_boundary_x, screen_boundary_y);
+		glTexCoord2f(1.0, 1.0); glVertex2f(screen_boundary_x, screen_boundary_y);
+		glTexCoord2f(1.0, 0.0); glVertex2f(screen_boundary_x, -screen_boundary_y);
+		glEnd();
+		
+		secondTexture.Bind();
+		glEnable(GL_BLEND);
+		glColor4f(1.0, 1.0, 1.0, 0.5);
+		int x = screen_boundary_x / 5;
+		int y = screen_boundary_y / 5;
+		float depth = 0.1f;
+
+		glBlendFunc(GL_ONE, GL_ONE);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0, 0.0); glVertex3f(-x, -y, depth);
+		glTexCoord2f(0.0, 1.0); glVertex3f(-x, y, depth);
+		glTexCoord2f(1.0, 1.0); glVertex3f(x, y, depth);
+		glTexCoord2f(1.0, 0.0); glVertex3f(x, -y,depth);
+		glEnd();
+		glDisable(GL_BLEND);
 	}
 	void Input(unsigned char key, int mouseX, int mouseY)
 	{

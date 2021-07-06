@@ -1,7 +1,5 @@
 #pragma once
 #include "Vec3.h"
-#include <iostream>
-#include <string>
 #include "Texture.h"
 
 class GameObject
