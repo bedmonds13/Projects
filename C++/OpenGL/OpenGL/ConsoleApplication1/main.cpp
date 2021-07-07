@@ -4,7 +4,7 @@
 #include "Mesh.h"
 
 
-int SCREEN_WIDTH = 2000, SCREEN_HEIGHT = 1500;
+int SCREEN_WIDTH = 1420, SCREEN_HEIGHT = 885;
 
 Game NewGame(SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -29,7 +29,8 @@ void display()
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glEnable(GL_TEXTURE_2D);	
 
 	NewGame.Update();
@@ -43,8 +44,9 @@ void display()
 void init()
 {
 	gluOrtho2D(-SCREEN_WIDTH/2, SCREEN_WIDTH/2, -SCREEN_HEIGHT/2, SCREEN_HEIGHT/2);
-	glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
 
 	NewGame.Initialize();
 

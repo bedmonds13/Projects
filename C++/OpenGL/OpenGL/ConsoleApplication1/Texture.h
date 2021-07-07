@@ -19,7 +19,7 @@ public:
 	void GenerateTexture()
 	{
 		stbi_set_flip_vertically_on_load(1);
-		data = stbi_load(filePath.c_str(), &width, &height, &nrChannels, 0);
+		data = stbi_load(filePath.c_str(), &width, &height, &nrChannels, 4);
 		GLenum format;
 		if (nrChannels == 1)
 			format = GL_RED;
@@ -32,8 +32,11 @@ public:
 			glGenTextures(1, &id);
 			glBindTexture(GL_TEXTURE_2D, id);
 			glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-			gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, format, GL_UNSIGNED_BYTE, data);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+			glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+			gluBuild2DMipmaps(GL_TEXTURE_2D, 4, width, height, format, GL_UNSIGNED_BYTE, data);
 		}
 		stbi_image_free(data);
 	}
