@@ -5,7 +5,6 @@ class Vec3
 public:
 	Vec3():_x(0.0f), _y(0.0f), _z(0.0f) {}
 	Vec3(float x, float y):_x(x), _y(y), _z(0) {}
-
 	Vec3(const Vec3& x) :_x(x._x), _y(x._y), _z(x._z) {}
 	Vec3(float x, float y, float z):_x(x), _y(y), _z(z) {}
 	

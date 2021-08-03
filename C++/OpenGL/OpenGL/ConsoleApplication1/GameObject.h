@@ -5,18 +5,18 @@
 class GameObject
 {
 	Vec3 position;
+	Texture _sprite;
 public:
-	Texture objectTexture;
 
-	GameObject():objectTexture() {
-	}
+	GameObject():position(Vec3::Zero()){}
 	Vec3 getPosition()const
 	{
 		return position;
 	}
-	void render(int x , int y)
+	void draw()
 	{
-		objectTexture.Bind();
+		if(!_sprite.Empty())
+			_sprite.Bind();
 	}
 };
 

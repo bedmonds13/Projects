@@ -32,8 +32,6 @@ public:
 			glGenTextures(1, &id);
 			glBindTexture(GL_TEXTURE_2D, id);
 			glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 			glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
 			gluBuild2DMipmaps(GL_TEXTURE_2D, 4, width, height, format, GL_UNSIGNED_BYTE, data);
@@ -46,6 +44,10 @@ public:
 	{
 		if(id)
 			glBindTexture(GL_TEXTURE_2D, id);
+	}
+	bool Empty()
+	{
+		return id != 0;
 	}
 
 	~Texture()
@@ -60,4 +62,3 @@ public:
 	}
 
 };
-
